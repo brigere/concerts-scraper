@@ -4,6 +4,8 @@ from config import DOWLOADED_PAGES_PATH
 from typing import List
 import json
 
+from util.tools import write_result
+
 
 def sanitizeData(data: List[Show]) -> List[Show]:
   for item in data:
@@ -30,15 +32,7 @@ def scrap_pages():
     scraper = ScraperFactory.create_scraper(w)
     print(scraper)
     concerts_data = scraper.get_concerts_data()
-    total_show_result = total_show_result + concerts_data
-
-  print(f"concerts found: {len(total_show_result)}")
-  total_show_result = sanitizeData(total_show_result)
-
-  data = [x.__dict__ for x in total_show_result]
-
-  with open("result.json", "w") as file:
-    file.write(json.dumps(data))
+    write_result(w.name, concerts_data)
 
 def test():
   ws = WebSource("icarus", "https://icarusmusicstore.com/29-recitales")
