@@ -32,7 +32,10 @@ def scrap_pages():
     scraper = ScraperFactory.create_scraper(w)
     print(scraper)
     concerts_data = scraper.get_concerts_data()
+    total_show_result = total_show_result + concerts_data
     write_result(w.name, concerts_data)
+
+  write_result("total", total_show_result)
 
 def test():
   ws = WebSource("icarus", "https://icarusmusicstore.com/29-recitales")
